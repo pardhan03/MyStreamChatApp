@@ -7,7 +7,7 @@ import { useAppContext } from '../../AppContext'
 const ChannelListScreen = ({ navigation }) => {
 
   const { client } = useChatContext();
-  const { setChannel } = useAppContext()
+  const { setChannel, setThread } = useAppContext()
 
   const filters = { members: { $in: [chatUserId] } };
   const sort = { last_message_at: -1 };
@@ -27,10 +27,6 @@ const ChannelListScreen = ({ navigation }) => {
         filters={filters}
         sort={sort} 
         onSelect={(channel) => {
-          if (channel?.id) {
-            setThread(message);
-            navigation.navigate("ThreadScreen");
-          }
           setChannel(channel)
           navigation.navigate('ChannelScreen');
         }}

@@ -3,9 +3,9 @@ import React from 'react'
 import { useAppContext } from '../../AppContext'
 import { Channel, MessageList, MessageInput } from 'stream-chat-react-native'
 
-const ChannelScreen = () => {
+const ChannelScreen = ({navigation}) => {
 
-    const { channel } = useAppContext();
+    const { channel, setThread } = useAppContext();
 
     if (!channel) {
         return (
@@ -17,7 +17,15 @@ const ChannelScreen = () => {
 
     return (
         <Channel channel={channel}>
-            <MessageList />
+            <MessageList 
+                onThreadSelect={(message) => {
+                    if (channel?.id) {
+                        setThread(message);
+                        navigation.navigate("ThreadScreen");
+                    }
+                }
+                }
+            />
             <MessageInput />
         </Channel>
     )
